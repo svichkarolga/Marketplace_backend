@@ -3,8 +3,8 @@ import cors from 'cors';
 import pino from 'pino-http';
 import cookieParser from 'cookie-parser';
 import { getEnvVar } from './utils/getEnvVar.js';
-// import { errorHandler } from './middlewares/errorHandler.js';
-// import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
 // import router from './routers/index.js';
 // import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
@@ -28,9 +28,9 @@ export const setupServer = () => {
 
   //   app.use(router);
 
-  //   app.use(notFoundHandler);
+  app.use(notFoundHandler);
 
-  //   app.use(errorHandler);
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
