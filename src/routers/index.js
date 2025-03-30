@@ -1,5 +1,5 @@
 import { Router } from 'express';
-// import contactsRouter from './contacts.js';
+// import productsRouter from './products.js';
 // import authRouter from './auth.js';
 
 const router = Router();
