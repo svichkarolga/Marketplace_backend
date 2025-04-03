@@ -1,19 +1,19 @@
 import Joi from 'joi';
 
 export const createProductSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required().messages({
+  name: Joi.string().min(3).max(100).required().messages({
     'string.base': 'Name should be a string',
     'string.min': 'Name should have at least 3 characters',
     'string.max': 'Name should have at most 20 characters',
     'any.required': 'Name is required',
   }),
-  category: Joi.string().min(3).max(20).required().messages({
+  category: Joi.string().min(3).max(100).required().messages({
     'string.base': 'Category should be a string',
     'string.min': 'Category should have at least 3 characters',
     'string.max': 'Category should have at most 20 characters',
     'any.required': 'Category is required',
   }),
-  description: Joi.string().min(10).max(150).required().messages({
+  description: Joi.string().min(50).max(1000).required().messages({
     'string.base': 'Description should be a string',
     'string.min': 'Description should have at least 10 characters',
     'string.max': 'Description should have at most 150 characters',
