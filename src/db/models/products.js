@@ -8,7 +8,20 @@ const productSchema = new Schema(
     },
     category: {
       type: String,
+      enum: [
+        'children',
+        'pet',
+        'home',
+        'fashion',
+        'hobby',
+        'sport',
+        'tools',
+        'gadget',
+        'garden',
+        'free',
+      ],
       required: true,
+      default: 'children',
     },
     description: {
       type: String,
