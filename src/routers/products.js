@@ -1,11 +1,11 @@
 import { Router } from 'express';
-// import {
-//   getProductsController,
-//   getProductsByIdController,
-//   createProductController,
-//   patchProductController,
-//   deleteProductController,
-// } from '../controllers/products.js';
+import {
+  getProductsController,
+  getProductByIdController,
+  createProductController,
+  patchProductController,
+  deleteProductController,
+} from '../controllers/products.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
@@ -20,25 +20,25 @@ const router = Router();
 
 // router.use(authenticate);
 
-// router.get('/', ctrlWrapper(getProductsController));
+router.get('/', ctrlWrapper(getProductsController));
 
-// router.get('/:contactId', isValidId, ctrlWrapper(getProductsByIdController));
+router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
 
-// router.post(
-//   '/',
-//   upload.single('photo'),
-//   validateBody(createProductSchema),
-//   ctrlWrapper(createProductController),
-// );
+router.post(
+  '/',
+  // upload.single('photo'),
+  validateBody(createProductSchema),
+  ctrlWrapper(createProductController),
+);
 
-// router.patch(
-//   '/:productId',
-//   isValidId,
-//   upload.single('photo'),
-//   validateBody(updateProductSchema),
-//   ctrlWrapper(patchProductController),
-// );
+router.patch(
+  '/:productId',
+  isValidId,
+  // upload.single('photo'),
+  validateBody(updateProductSchema),
+  ctrlWrapper(patchProductController),
+);
 
-// router.delete('/:productId', isValidId, ctrlWrapper(deleteProductController));
+router.delete('/:productId', isValidId, ctrlWrapper(deleteProductController));
 
 export default router;
