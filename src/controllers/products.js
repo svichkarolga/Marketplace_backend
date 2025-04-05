@@ -8,9 +8,11 @@ import {
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 export const getProductsController = async (req, res) => {
-  const products = await getAllProducts();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const products = await getAllProducts({ page, perPage });
   res.json({
     status: 200,
     message: 'Successfully found all products!',

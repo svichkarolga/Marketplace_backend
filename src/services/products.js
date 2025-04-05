@@ -1,8 +1,16 @@
 import { ProductsCollection } from '../db/models/products.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllProducts = async () => {
-  const products = await ProductsCollection.find();
-  return products;
+export const getAllProducts = async ({ page, perPage }) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
+  const productsQuery = ProductsCollection.find();
+  const productsCount = await ProductsCollection.find()
+    .merge(productsQuery)
+    .countDocuments();
+  const products = await productsQuery.skip(skip).limit(limit).exec();
+  const paginationData = calculatePaginationData(productsCount, perPage, page);
+  return { data: products, ...paginationData };
 };
 
 export const getProductById = async (productId) => {
