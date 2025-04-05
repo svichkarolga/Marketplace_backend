@@ -14,7 +14,7 @@ import {
 } from '../validation/products.js';
 import { isValidId } from '../middlewares/isValidId.js';
 // import { authenticate } from '../middlewares/authenticate.js';
-// import { upload } from '../middlewares/multer.js';
+import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 
@@ -26,7 +26,7 @@ router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
 
 router.post(
   '/',
-  // upload.single('photo'),
+  upload.single('photo'),
   validateBody(createProductSchema),
   ctrlWrapper(createProductController),
 );
@@ -34,7 +34,7 @@ router.post(
 router.patch(
   '/:productId',
   isValidId,
-  // upload.single('photo'),
+  upload.single('photo'),
   validateBody(updateProductSchema),
   ctrlWrapper(patchProductController),
 );

@@ -5,6 +5,9 @@ import {
   updateProduct,
   deleteProduct,
 } from '../services/products.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getProductsController = async (req, res) => {
   const products = await getAllProducts();
@@ -15,11 +18,10 @@ export const getProductsController = async (req, res) => {
   });
 };
 
-export const getProductByIdController = async (req, res) => {
+export const getProductByIdController = async (req, res, next) => {
   const { productId } = req.params;
   const product = await getProductById(productId);
-
-  if (!student) {
+  if (!productId) {
     next(new Error('Product not found'));
     return;
   }
@@ -31,7 +33,16 @@ export const getProductByIdController = async (req, res) => {
 };
 
 export const createProductController = async (req, res) => {
-  const product = await createProduct(req.body);
+  const photo = req.file;
+  let photoUrl;
+  if (photo) {
+    if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+  const product = await createProduct({ ...req.body, photo: photoUrl });
   res.status(201).json({
     status: 201,
     message: `Successfully created a product!`,
@@ -40,8 +51,20 @@ export const createProductController = async (req, res) => {
 };
 
 export const patchProductController = async (req, res, next) => {
+  const photo = req.file;
+  let photoUrl;
+  if (photo) {
+    if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
   const { productId } = req.params;
-  const result = await updateProduct(productId, req.body);
+  const result = await updateProduct(productId, {
+    ...req.body,
+    photo: photoUrl,
+  });
   if (!result) {
     next(createHttpError(404, 'Product not found'));
     return;

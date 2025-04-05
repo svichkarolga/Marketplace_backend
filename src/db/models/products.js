@@ -36,6 +36,11 @@ const productSchema = new Schema(
       required: true,
     },
     photo: { type: String },
+    // userId: {
+    //   type: Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: 'users',
+    // },
   },
   {
     timestamps: true,

@@ -6,7 +6,7 @@ export const getAllProducts = async () => {
 };
 
 export const getProductById = async (productId) => {
-  const product = await ProductsCollection.findById(productId);
+  const product = await ProductsCollection.findOne({ _id: productId });
   return product;
 };
 

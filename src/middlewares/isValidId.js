@@ -2,8 +2,8 @@ import { isValidObjectId } from 'mongoose';
 import createHttpError from 'http-errors';
 
 export const isValidId = (req, res, next) => {
-  const { contactId } = req.params;
-  if (!isValidObjectId(contactId)) {
+  const { productId } = req.params;
+  if (!isValidObjectId(productId)) {
     throw createHttpError(
       400,
       `Invalid ID format: '${productId}' is not a valid ObjectId`,
