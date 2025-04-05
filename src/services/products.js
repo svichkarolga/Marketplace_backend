@@ -7,10 +7,24 @@ export const getAllProducts = async ({
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
+  filter = {},
+  userId,
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-  const productsQuery = ProductsCollection.find();
+  const productsQuery = ProductsCollection.find({ userId });
+  if (filter.category) {
+    productsQuery.where('category').equals(filter.category);
+  }
+  if (filter.maxPrice) {
+    productsQuery.where('age').lte(filter.maxPrice);
+  }
+  if (filter.minPrice) {
+    productsQuery.where('age').gte(filter.minPrice);
+  }
+  if (filter.name) {
+    productsQuery.where('name', new RegExp(filter.name, 'i'));
+  }
   const productsCount = await ProductsCollection.find()
     .merge(productsQuery)
     .countDocuments();
@@ -23,8 +37,14 @@ export const getAllProducts = async ({
   return { data: products, ...paginationData };
 };
 
-export const getProductById = async (productId) => {
-  const product = await ProductsCollection.findOne({ _id: productId });
+export const getProductById = async (
+  productId,
+  // userId
+) => {
+  const product = await ProductsCollection.findOne({
+    _id: productId,
+    // userId
+  });
   return product;
 };
 
@@ -35,8 +55,12 @@ export const createProduct = async (payload) => {
 
 export const updateProduct = async (productId, payload, options = {}) => {
   const rawResult = await ProductsCollection.findOneAndUpdate(
-    { _id: productId },
+    {
+      _id: productId,
+      // userId
+    },
     payload,
+
     {
       new: true,
       includeResultMetadata: true,

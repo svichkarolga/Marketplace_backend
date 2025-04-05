@@ -10,11 +10,19 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getProductsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  const products = await getAllProducts({ page, perPage, sortBy, sortOrder });
+  const filter = parseFilterParams(req.query);
+  const products = await getAllProducts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
   res.json({
     status: 200,
     message: 'Successfully found all products!',
@@ -37,6 +45,7 @@ export const getProductByIdController = async (req, res, next) => {
 };
 
 export const createProductController = async (req, res) => {
+  // const userId = req.user._id;
   const photo = req.file;
   let photoUrl;
   if (photo) {
@@ -46,7 +55,11 @@ export const createProductController = async (req, res) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
   }
-  const product = await createProduct({ ...req.body, photo: photoUrl });
+  const product = await createProduct({
+    ...req.body,
+    // userId,
+    photo: photoUrl,
+  });
   res.status(201).json({
     status: 201,
     message: `Successfully created a product!`,
@@ -55,6 +68,7 @@ export const createProductController = async (req, res) => {
 };
 
 export const patchProductController = async (req, res, next) => {
+  // const userId = req.user._id;
   const photo = req.file;
   let photoUrl;
   if (photo) {
@@ -65,10 +79,14 @@ export const patchProductController = async (req, res, next) => {
     }
   }
   const { productId } = req.params;
-  const result = await updateProduct(productId, {
-    ...req.body,
-    photo: photoUrl,
-  });
+  const result = await updateProduct(
+    productId,
+    // userId,
+    {
+      ...req.body,
+      photo: photoUrl,
+    },
+  );
   if (!result) {
     next(createHttpError(404, 'Product not found'));
     return;

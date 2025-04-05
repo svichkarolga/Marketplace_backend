@@ -7,15 +7,27 @@ export const createProductSchema = Joi.object({
     'string.max': 'Name should have at most 100 characters',
     'any.required': 'Name is required',
   }),
-  category: Joi.string().min(3).max(100).required().messages({
-    'string.base': 'Category should be a string',
-    'string.min': 'Category should have at least 3 characters',
-    'string.max': 'Category should have at most 100 characters',
-    'any.required': 'Category is required',
-  }),
-  description: Joi.string().min(50).max(1500).required().messages({
+  category: Joi.string()
+    .valid(
+      'children',
+      'pet',
+      'home',
+      'fashion',
+      'hobby',
+      'sport',
+      'tools',
+      'gadget',
+      'garden',
+      'free',
+    )
+    .required()
+    .messages({
+      'any.only':
+        'Field should have one of this values: children, pet, home, fashion, hobby, sport, tools, gadget, garden, free',
+      'any.required': 'Category is required',
+    }),
+  description: Joi.string().max(1500).required().messages({
     'string.base': 'Description should be a string',
-    'string.min': 'Description should have at least 50 characters',
     'string.max': 'Description should have at most 1500 characters',
     'any.required': 'Description is required',
   }),
@@ -27,12 +39,10 @@ export const createProductSchema = Joi.object({
   }),
   phoneNumber: Joi.string()
     .pattern(/^[+]?[0-9]{10,15}$/)
-    .min(3)
     .max(20)
     .required()
     .messages({
       'string.base': 'PhoneNumber should start with "+"',
-      'string.min': 'PhoneNumber should have at least 3 characters',
       'string.max': 'PhoneNumber should have at most 20 characters',
       'any.required': 'PhoneNumber is required',
     }),
@@ -54,9 +64,8 @@ export const updateProductSchema = Joi.object({
     'string.max': 'Category should have at most 20 characters',
     'any.required': 'Category is required',
   }),
-  description: Joi.string().min(50).max(1500).messages({
+  description: Joi.string().max(1500).messages({
     'string.base': 'Description should be a string',
-    'string.min': 'Description should have at least 50 characters',
     'string.max': 'Description should have at most 1500 characters',
     'any.required': 'Description is required',
   }),
