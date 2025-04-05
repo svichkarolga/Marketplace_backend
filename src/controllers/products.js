@@ -9,10 +9,12 @@ import { getEnvVar } from '../utils/getEnvVar.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
 
 export const getProductsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
-  const products = await getAllProducts({ page, perPage });
+  const { sortBy, sortOrder } = parseSortParams(req.query);
+  const products = await getAllProducts({ page, perPage, sortBy, sortOrder });
   res.json({
     status: 200,
     message: 'Successfully found all products!',
