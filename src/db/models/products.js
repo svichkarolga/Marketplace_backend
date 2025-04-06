@@ -27,6 +27,11 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
+    condition: {
+      type: String,
+      enum: ['new', 'used'],
+      required: true,
+    },
     price: {
       type: String,
       required: true,
