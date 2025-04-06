@@ -45,7 +45,6 @@ export const getProductByIdController = async (req, res, next) => {
 };
 
 export const createProductController = async (req, res) => {
-  // const userId = req.user._id;
   const photo = req.file;
   let photoUrl;
   if (photo) {
@@ -57,7 +56,7 @@ export const createProductController = async (req, res) => {
   }
   const product = await createProduct({
     ...req.body,
-    // userId,
+    sellerId: req.user._id,
     photo: photoUrl,
   });
   res.status(201).json({
@@ -68,7 +67,6 @@ export const createProductController = async (req, res) => {
 };
 
 export const patchProductController = async (req, res, next) => {
-  // const userId = req.user._id;
   const photo = req.file;
   let photoUrl;
   if (photo) {
@@ -79,14 +77,11 @@ export const patchProductController = async (req, res, next) => {
     }
   }
   const { productId } = req.params;
-  const result = await updateProduct(
-    productId,
-    // userId,
-    {
-      ...req.body,
-      photo: photoUrl,
-    },
-  );
+  const result = await updateProduct(productId, {
+    ...req.body,
+    sellerId: req.user._id,
+    photo: photoUrl,
+  });
   if (!result) {
     next(createHttpError(404, 'Product not found'));
     return;

@@ -54,6 +54,12 @@ export const createProductSchema = Joi.object({
   photo: Joi.string().uri().optional().allow('').messages({
     'string.uri': 'Photo must be a valid URL',
   }),
+  sellerId: Joi.string().custom((value, helper) => {
+    if (value && !isValidObjectId(value)) {
+      return helper.message('Seller id should be a valid mongo id');
+    }
+    return true;
+  }),
 });
 
 export const updateProductSchema = Joi.object({

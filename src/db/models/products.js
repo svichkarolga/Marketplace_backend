@@ -41,11 +41,10 @@ const productSchema = new Schema(
       required: true,
     },
     photo: { type: String },
-    // userId: {
-    //   type: Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: 'users',
-    // },
+    sellerId: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+    },
   },
   {
     timestamps: true,
