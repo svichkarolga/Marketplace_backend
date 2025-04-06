@@ -13,6 +13,8 @@ const parseSortBy = (sortBy) => {
     'category',
     'description',
     'price',
+    'condition',
+    'sellerId',
     'phoneNumber',
     'createdAt',
     'updatedAt',

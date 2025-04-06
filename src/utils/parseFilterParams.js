@@ -35,18 +35,35 @@ const parseName = (name) => {
   return trimmed.length > 0 ? trimmed : undefined;
 };
 
+const parseCondition = (condition) => {
+  const allowed = ['new', 'used'];
+  if (typeof condition !== 'string') return;
+  return allowed.includes(condition.toLowerCase())
+    ? condition.toLowerCase()
+    : undefined;
+};
+
+const parseSellerId = (sellerId) => {
+  if (typeof sellerId !== 'string') return;
+  const isValid = /^[a-f\d]{24}$/i.test(sellerId);
+  return isValid ? sellerId : undefined;
+};
 export const parseFilterParams = (query) => {
-  const { category, maxPrice, minPrice, name } = query;
+  const { category, maxPrice, minPrice, name, condition, sellerId } = query;
 
   const parsedCategory = parseCategory(category);
   const parsedMaxPrice = parseNumber(maxPrice);
   const parsedMinPrice = parseNumber(minPrice);
   const parsedName = parseName(name);
+  const parsedCondition = parseCondition(condition);
+  const parsedSellerId = parseSellerId(sellerId);
 
   return {
     category: parsedCategory,
     maxPrice: parsedMaxPrice,
     minPrice: parsedMinPrice,
     name: parsedName,
+    condition: parsedCondition,
+    sellerId: parsedSellerId,
   };
 };
