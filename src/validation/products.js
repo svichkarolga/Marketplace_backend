@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { isValidObjectId } from 'mongoose';
 
 export const createProductSchema = Joi.object({
   name: Joi.string().min(3).max(100).required().messages({
