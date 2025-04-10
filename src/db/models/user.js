@@ -11,6 +11,9 @@ const usersSchema = new Schema(
       enum: [ROLES.SELLER, ROLES.BUYER],
       default: ROLES.BUYER,
     },
+    phoneNumber: {
+      type: String,
+    },
   },
   { timestamps: true, versionKey: false },
 );
