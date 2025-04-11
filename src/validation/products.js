@@ -36,23 +36,65 @@ export const createProductSchema = Joi.object({
     'any.only': 'Field should have one of this values: new or used',
     'any.required': 'Condition of product is required',
   }),
-  price: Joi.string().min(1).max(10).required().messages({
-    'string.base': 'Price should be a string',
-    'string.min': 'Price should have at least 1 character',
-    'string.max': 'Price should have at most 10 characters',
+  price: Joi.number().min(0).max(999999).required().messages({
+    'number.base': 'Price should be a number',
+    'number.min': 'Price should be at least 0',
+    'number.max': 'Price should not exceed 999999',
     'any.required': 'Price is required',
   }),
   phoneNumber: Joi.string()
     .pattern(/^[+]?[0-9]{10,15}$/)
-    .max(20)
+    .max(15)
     .required()
     .messages({
       'string.base': 'PhoneNumber should start with "+"',
-      'string.max': 'PhoneNumber should have at most 20 characters',
+      'string.max': 'PhoneNumber should have 12 characters',
       'any.required': 'PhoneNumber is required',
     }),
   photo: Joi.string().uri().optional().allow('').messages({
     'string.uri': 'Photo must be a valid URL',
+  }),
+  region: Joi.string()
+    .valid(
+      'Vinnytska',
+      'Volynska',
+      'Dnipropetrovska',
+      'Donetska',
+      'Zhytomyrska',
+      'Zakarpatska',
+      'Zaporizka',
+      'Ivano-Frankivska',
+      'Kyivska',
+      'Kirovohradska',
+      'Luhanska',
+      'Lvivska',
+      'Mykolaivska',
+      'Odeska',
+      'Poltavska',
+      'Rivnenska',
+      'Sumska',
+      'Ternopilska',
+      'Kharkivska',
+      'Khersonska',
+      'Khmelnytska',
+      'Cherkaska',
+      'Chernivetska',
+      'Chernihivska',
+      'Crimea',
+    )
+    .required()
+    .messages({
+      'any.only': 'Please select one of 25 regions of Ukraine',
+      'any.required': 'Region is required',
+    }),
+  city: Joi.string().min(3).max(20).required().messages({
+    'string.base': 'Name should be a string',
+    'string.min': 'Name should have at least 3 characters',
+    'string.max': 'Name should have at most 20 characters',
+    'any.required': 'City is required',
+  }),
+  delivery: Joi.string().valid('self - pickup', 'mail').messages({
+    'any.only': 'Field should have one of this values: self - pickup, mail',
   }),
   sellerId: Joi.string().custom((value, helper) => {
     if (value && !isValidObjectId(value)) {
@@ -63,10 +105,10 @@ export const createProductSchema = Joi.object({
 });
 
 export const updateProductSchema = Joi.object({
-  name: Joi.string().min(3).max(20).messages({
+  name: Joi.string().min(3).max(100).messages({
     'string.base': 'Name should be a string',
     'string.min': 'Name should have at least 3 characters',
-    'string.max': 'Name should have at most 20 characters',
+    'string.max': 'Name should have at most 100 characters',
   }),
   category: Joi.string().messages({
     'any.only':
@@ -79,21 +121,64 @@ export const updateProductSchema = Joi.object({
   condition: Joi.string().messages({
     'any.only': 'Field should have one of this values: new or used',
   }),
-  price: Joi.string().min(1).max(10).messages({
-    'string.base': 'Price should be a string',
-    'string.min': 'Price should have at least 1 character',
-    'string.max': 'Price should have at most 10 characters',
+  price: Joi.number().min(0).max(999999).messages({
+    'number.base': 'Price should be a number',
+    'number.min': 'Price should be at least 0',
+    'number.max': 'Price should not exceed 999999',
   }),
   phoneNumber: Joi.string()
     .pattern(/^[+]?[0-9]{10,15}$/)
-    .min(3)
-    .max(20)
+    .max(15)
     .messages({
       'string.base': 'PhoneNumber should start with "+"',
-      'string.min': 'PhoneNumber should have at least 3 characters',
-      'string.max': 'PhoneNumber should have at most 20 characters',
+      'string.max': 'PhoneNumber should have 12 characters',
     }),
   photo: Joi.string().uri().optional().allow('').messages({
     'string.uri': 'Photo must be a valid URL',
+  }),
+  region: Joi.string()
+    .valid(
+      'Vinnytska',
+      'Volynska',
+      'Dnipropetrovska',
+      'Donetska',
+      'Zhytomyrska',
+      'Zakarpatska',
+      'Zaporizka',
+      'Ivano-Frankivska',
+      'Kyivska',
+      'Kirovohradska',
+      'Luhanska',
+      'Lvivska',
+      'Mykolaivska',
+      'Odeska',
+      'Poltavska',
+      'Rivnenska',
+      'Sumska',
+      'Ternopilska',
+      'Kharkivska',
+      'Khersonska',
+      'Khmelnytska',
+      'Cherkaska',
+      'Chernivetska',
+      'Chernihivska',
+      'Crimea',
+    )
+    .messages({
+      'any.only': 'Please select one of 25 regions of Ukraine',
+    }),
+  city: Joi.string().min(3).max(20).messages({
+    'string.base': 'Name should be a string',
+    'string.min': 'Name should have at least 3 characters',
+    'string.max': 'Name should have at most 20 characters',
+  }),
+  delivery: Joi.string().valid('self - pickup', 'mail').messages({
+    'any.only': 'Field should have one of this values: self - pickup, mail',
+  }),
+  sellerId: Joi.string().custom((value, helper) => {
+    if (value && !isValidObjectId(value)) {
+      return helper.message('Seller id should be a valid mongo id');
+    }
+    return true;
   }),
 });
