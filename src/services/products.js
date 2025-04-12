@@ -16,11 +16,20 @@ export const getAllProducts = async ({
   if (filter.category) {
     productsQuery.where('category').equals(filter.category);
   }
+  if (filter.region) {
+    productsQuery.where('region').equals(filter.region);
+  }
+  if (filter.condition) {
+    productsQuery.where('condition').equals(filter.condition);
+  }
+  if (filter.city) {
+    productsQuery.where('city').equals(filter.city);
+  }
   if (filter.maxPrice) {
-    productsQuery.where('age').lte(filter.maxPrice);
+    productsQuery.where('price').lte(filter.maxPrice);
   }
   if (filter.minPrice) {
-    productsQuery.where('age').gte(filter.minPrice);
+    productsQuery.where('price').gte(filter.minPrice);
   }
   if (filter.name) {
     productsQuery.where('name', new RegExp(filter.name, 'i'));
@@ -37,13 +46,9 @@ export const getAllProducts = async ({
   return { data: products, ...paginationData };
 };
 
-export const getProductById = async (
-  productId,
-  // userId
-) => {
+export const getProductById = async (productId) => {
   const product = await ProductsCollection.findOne({
     _id: productId,
-    // userId
   });
   return product;
 };
