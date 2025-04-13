@@ -17,14 +17,14 @@ const parseCategory = (category) => {
   if (isCategory(category)) return category;
 };
 
-const parseNumber = (number) => {
-  const isString = typeof number === 'string';
-  if (!isString) return;
-  const parsedNumber = parseInt(number);
-  if (Number.isNaN(parsedNumber)) {
-    return;
+const parsePriceParam = (value) => {
+  if (value === undefined || value === null) return undefined;
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string') {
+    const num = parseFloat(value.replace(',', '.'));
+    return isNaN(num) ? undefined : num;
   }
-  return parsedNumber;
+  return undefined;
 };
 
 const parseName = (name) => {
@@ -97,6 +97,7 @@ export const parseFilterParams = (query) => {
     category,
     maxPrice,
     minPrice,
+    price,
     name,
     condition,
     region,
@@ -105,8 +106,9 @@ export const parseFilterParams = (query) => {
   } = query;
 
   const parsedCategory = parseCategory(category);
-  const parsedMaxPrice = parseNumber(maxPrice);
-  const parsedMinPrice = parseNumber(minPrice);
+  const parsedMaxPrice = parsePriceParam(maxPrice);
+  const parsedMinPrice = parsePriceParam(minPrice);
+  const parsedExactPrice = parsePriceParam(price);
   const parsedName = parseName(name);
   const parsedCondition = parseCondition(condition);
   const parsedRegion = parseRegion(region);
@@ -117,6 +119,7 @@ export const parseFilterParams = (query) => {
     category: parsedCategory,
     maxPrice: parsedMaxPrice,
     minPrice: parsedMinPrice,
+    price: parsedExactPrice,
     name: parsedName,
     condition: parsedCondition,
     region: parsedRegion,
