@@ -85,6 +85,11 @@ const productSchema = new Schema(
       type: String,
       enum: ['self - pickup', 'mail'],
     },
+    favoritesCount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
   },
   {
     timestamps: true,

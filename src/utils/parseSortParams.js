@@ -20,6 +20,7 @@ const parseSortBy = (sortBy) => {
     'sellerId',
     'phoneNumber',
     'timestamps',
+    'favoritesCount',
   ];
   if (keysOfProduct.includes(sortBy)) {
     return sortBy;
