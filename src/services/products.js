@@ -25,11 +25,14 @@ export const getAllProducts = async ({
   if (filter.city) {
     productsQuery.where('city').equals(filter.city);
   }
-  if (filter.maxPrice) {
+  if (filter.maxPrice !== undefined) {
     productsQuery.where('price').lte(filter.maxPrice);
   }
-  if (filter.minPrice) {
+  if (filter.minPrice !== undefined) {
     productsQuery.where('price').gte(filter.minPrice);
+  }
+  if (filter.price !== undefined) {
+    productsQuery.where('price').equals(filter.price);
   }
   if (filter.name) {
     productsQuery.where('name', new RegExp(filter.name, 'i'));
