@@ -1,16 +1,10 @@
 import { model, Schema } from 'mongoose';
-import { ROLES } from '../../constants/auth.js';
 
 const usersSchema = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: {
-      type: String,
-      enum: [ROLES.SELLER, ROLES.BUYER],
-      default: ROLES.BUYER,
-    },
     phoneNumber: {
       type: String,
     },
