@@ -15,31 +15,19 @@ import {
 import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { upload } from '../middlewares/multer.js';
-import { checkRoles } from '../middlewares/checkRoles.js';
-import { ROLES } from '../constants/auth.js';
 
 const router = Router();
 
 router.use(authenticate);
 
-router.get(
-  '/',
-  checkRoles(ROLES.BUYER, ROLES.SELLER),
-  ctrlWrapper(getProductsController),
-);
+router.get('/', ctrlWrapper(getProductsController));
 
-router.get(
-  '/:productId',
-  isValidId,
-  checkRoles(ROLES.BUYER, ROLES.SELLER),
-  ctrlWrapper(getProductByIdController),
-);
+router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
 
 router.post(
   '/',
   upload.single('photo'),
   validateBody(createProductSchema),
-  checkRoles(ROLES.SELLER),
   ctrlWrapper(createProductController),
 );
 
@@ -48,15 +36,9 @@ router.patch(
   isValidId,
   upload.single('photo'),
   validateBody(updateProductSchema),
-  checkRoles(ROLES.SELLER),
   ctrlWrapper(patchProductController),
 );
 
-router.delete(
-  '/:productId',
-  isValidId,
-  checkRoles(ROLES.SELLER),
-  ctrlWrapper(deleteProductController),
-);
+router.delete('/:productId', isValidId, ctrlWrapper(deleteProductController));
 
 export default router;
