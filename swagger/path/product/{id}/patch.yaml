@@ -1,0 +1,130 @@
+tags:
+  - Products
+summary: Update product
+operationId: patchProduct
+description: 'Update a product with the provided payload. Only fields in the request body will be updated.'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: productId
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+    description: ID of the product to update
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: Name of product
+            type: string
+            example: Tea set
+          category:
+            description: Category product belongs to
+            type: string
+            enum:
+              [
+                'children',
+                'pet',
+                'home',
+                'fashion',
+                'hobby',
+                'sport',
+                'tools',
+                'gadget',
+                'garden',
+                'free',
+              ]
+            example: 'home'
+          description:
+            description: Description of the product
+            type: string
+            example: A lovely porcelain tea set for a 6 person. In beige color.
+          condition:
+            description: Is it new or used
+            type: string
+            enum: ['new', 'used']
+            example: 'new'
+          price:
+            description: The price for the product
+            type: number
+            example: 1000
+          phoneNumber:
+            description: Phone number of the seller
+            type: string
+            example: '+380698785983'
+          photo:
+            description: Link to the photo of the product
+            type: string
+            format: binary
+            example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+          region:
+            description: Please select one of 25 regions of Ukraine
+            type: string
+            enum:
+              [
+                'Vinnytska',
+                'Volynska',
+                'Dnipropetrovska',
+                'Donetska',
+                'Zhytomyrska',
+                'Zakarpatska',
+                'Zaporizka',
+                'Ivano-Frankivska',
+                'Kyivska',
+                'Kirovohradska',
+                'Luhanska',
+                'Lvivska',
+                'Mykolaivska',
+                'Odeska',
+                'Poltavska',
+                'Rivnenska',
+                'Sumska',
+                'Ternopilska',
+                'Kharkivska',
+                'Khersonska',
+                'Khmelnytska',
+                'Cherkaska',
+                'Chernivetska',
+                'Chernihivska',
+                'Crimea',
+              ]
+            example: 'Kharkivska'
+          city:
+            description: Type the city
+            type: string
+            example: 'Kharkiv'
+          delivery:
+            description: Select what delivery you can provide
+            type: string
+            enum: ['self - pickup', 'mail']
+            example: 'self - pickup'
+responses:
+  '200':
+    description: Successfully updated a contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully updated a contact!
+            data:
+              type: object
+              $ref: '../../../components/schemas/updateProduct.yaml'
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml

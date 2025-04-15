@@ -1,15 +1,6 @@
 type: object
 required:
-  - name
-  - category
-  - description
-  - condition
-  - price
-  - phoneNumber
-  - photo
-  - region
-  - city
-  - delivery
+  - productId
 properties:
   name:
     description: Name of product
