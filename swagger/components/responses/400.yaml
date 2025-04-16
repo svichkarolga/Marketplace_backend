@@ -1,4 +1,4 @@
-description: Invalid userId
+description: Invalid Id
 content:
   application/json:
     schema:

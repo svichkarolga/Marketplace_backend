@@ -44,7 +44,9 @@ parameters:
     required: false
     schema:
       type: string
-      enum: [asc, desc]
+      enum:
+        - asc
+        - desc
       example: asc
     description: Sort order (ascending or descending).
   - in: query
@@ -80,14 +82,16 @@ parameters:
     required: false
     schema:
       type: string
-      example: 'phone'
+      example: 'Tea set'
     description: Filter by product name.
   - in: query
     name: condition
     required: false
     schema:
       type: string
-      enum: [new, used]
+      enum:
+        - new
+        - used
       example: new
     description: Filter by product condition.
   - in: query
@@ -145,16 +149,16 @@ responses:
                   items:
                     $ref: ../../components/schemas/product.yaml
                 page:
-                  type: number
+                  type: integer
                   example: 2
                 perPage:
-                  type: number
+                  type: integer
                   example: 4
                 totalItems:
-                  type: number
+                  type: integer
                   example: 40
                 totalPages:
-                  type: number
+                  type: integer
                   example: 10
                 hasNextPage:
                   type: boolean

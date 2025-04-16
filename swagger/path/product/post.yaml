@@ -30,19 +30,17 @@ requestBody:
             description: Category product belongs to
             type: string
             enum:
-              [
-                'children',
-                'pet',
-                'home',
-                'fashion',
-                'hobby',
-                'sport',
-                'tools',
-                'gadget',
-                'garden',
-                'free',
-              ]
-            example: 'home'
+              - children
+              - pet
+              - home
+              - fashion
+              - hobby
+              - sport
+              - tools
+              - gadget
+              - garden
+              - free
+            example: home
           description:
             description: Description of the product
             type: string
@@ -50,8 +48,10 @@ requestBody:
           condition:
             description: Is it new or used
             type: string
-            enum: ['new', 'used']
-            example: 'new'
+            enum:
+              - new
+              - used
+            example: new
           price:
             description: The price for the product
             type: number
@@ -64,51 +64,50 @@ requestBody:
             description: Link to the photo of the product
             type: string
             format: binary
-            example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
           region:
             description: Please select one of 25 regions of Ukraine
             type: string
             enum:
-              [
-                'Vinnytska',
-                'Volynska',
-                'Dnipropetrovska',
-                'Donetska',
-                'Zhytomyrska',
-                'Zakarpatska',
-                'Zaporizka',
-                'Ivano-Frankivska',
-                'Kyivska',
-                'Kirovohradska',
-                'Luhanska',
-                'Lvivska',
-                'Mykolaivska',
-                'Odeska',
-                'Poltavska',
-                'Rivnenska',
-                'Sumska',
-                'Ternopilska',
-                'Kharkivska',
-                'Khersonska',
-                'Khmelnytska',
-                'Cherkaska',
-                'Chernivetska',
-                'Chernihivska',
-                'Crimea',
-              ]
-            example: 'Kharkivska'
+              - Vinnytska
+              - Volynska
+              - Dnipropetrovska
+              - Donetska
+              - Zhytomyrska
+              - Zakarpatska
+              - Zaporizka
+              - Ivano-Frankivska
+              - Kyivska
+              - Kirovohradska
+              - Luhanska
+              - Lvivska
+              - Mykolaivska
+              - Odeska
+              - Poltavska
+              - Rivnenska
+              - Sumska
+              - Ternopilska
+              - Kharkivska
+              - Khersonska
+              - Khmelnytska
+              - Cherkaska
+              - Chernivetska
+              - Chernihivska
+              - Crimea
+            example: Kharkivska
           city:
             description: Type the city
             type: string
-            example: 'Kharkiv'
+            example: Kharkiv
           delivery:
             description: Select what delivery you can provide
             type: string
-            enum: ['self - pickup', 'mail']
-            example: 'self - pickup'
+            enum:
+              - self-pickup
+              - mail
+            example: self-pickup
 responses:
   '201':
-    description: Successfully created a contact
+    description: Successfully created a product
     content:
       application/json:
         schema:
@@ -123,7 +122,7 @@ responses:
               example: 201
             message:
               type: string
-              example: Successfully created a contact!
+              example: Successfully created a product!
             data:
               type: object
               $ref: '../../components/schemas/product.yaml'

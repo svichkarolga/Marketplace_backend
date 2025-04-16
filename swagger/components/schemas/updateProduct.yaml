@@ -2,6 +2,10 @@ type: object
 required:
   - productId
 properties:
+  productId:
+    description: ID of the product
+    type: string
+    example: '60c72b2f9f1b2c001f6c6c2b'
   name:
     description: Name of product
     type: string
@@ -10,19 +14,17 @@ properties:
     description: Category product belongs to
     type: string
     enum:
-      [
-        'children',
-        'pet',
-        'home',
-        'fashion',
-        'hobby',
-        'sport',
-        'tools',
-        'gadget',
-        'garden',
-        'free',
-      ]
-    example: 'home'
+      - children
+      - pet
+      - home
+      - fashion
+      - hobby
+      - sport
+      - tools
+      - gadget
+      - garden
+      - free
+    example: home
   description:
     description: Description of the product
     type: string
@@ -30,8 +32,10 @@ properties:
   condition:
     description: Is it new or used
     type: string
-    enum: ['new', 'used']
-    example: 'new'
+    enum:
+      - new
+      - used
+    example: new
   price:
     description: The price for the product
     type: number
@@ -49,40 +53,40 @@ properties:
     description: Please select one of 25 regions of Ukraine
     type: string
     enum:
-      [
-        'Vinnytska',
-        'Volynska',
-        'Dnipropetrovska',
-        'Donetska',
-        'Zhytomyrska',
-        'Zakarpatska',
-        'Zaporizka',
-        'Ivano-Frankivska',
-        'Kyivska',
-        'Kirovohradska',
-        'Luhanska',
-        'Lvivska',
-        'Mykolaivska',
-        'Odeska',
-        'Poltavska',
-        'Rivnenska',
-        'Sumska',
-        'Ternopilska',
-        'Kharkivska',
-        'Khersonska',
-        'Khmelnytska',
-        'Cherkaska',
-        'Chernivetska',
-        'Chernihivska',
-        'Crimea',
-      ]
-    example: 'Kharkivska'
+      - Vinnytska
+      - Volynska
+      - Dnipropetrovska
+      - Donetska
+      - Zhytomyrska
+      - Zakarpatska
+      - Zaporizka
+      - Ivano-Frankivska
+      - Kyivska
+      - Kirovohradska
+      - Luhanska
+      - Lvivska
+      - Mykolaivska
+      - Odeska
+      - Poltavska
+      - Rivnenska
+      - Sumska
+      - Ternopilska
+      - Kharkivska
+      - Khersonska
+      - Khmelnytska
+      - Cherkaska
+      - Chernivetska
+      - Chernihivska
+      - Crimea
+    example: Kharkivska
   city:
     description: Type the city
     type: string
-    example: 'Kharkiv'
+    example: Kharkiv
   delivery:
     description: Select what delivery you can provide
     type: string
-    enum: ['self - pickup', 'mail']
-    example: 'self - pickup'
+    enum:
+      - self-pickup
+      - mail
+    example: self-pickup
