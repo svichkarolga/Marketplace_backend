@@ -51,7 +51,7 @@ export const createProductSchema = Joi.object({
       'string.max': 'PhoneNumber should have 12 characters',
       'any.required': 'PhoneNumber is required',
     }),
-  photo: Joi.string().uri().required().messages({
+  photo: Joi.string().uri().optional().allow('').messages({
     'string.uri': 'Photo must be a valid URL',
   }),
   region: Joi.string()

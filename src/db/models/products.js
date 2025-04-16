@@ -43,7 +43,6 @@ const productSchema = new Schema(
     },
     photo: {
       type: String,
-      required: true,
     },
     sellerId: {
       type: Schema.Types.ObjectId,

@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import {
   addFavorite,
   removeFavorite,
@@ -9,7 +10,7 @@ export const addFavoriteController = async (req, res, next) => {
   const userId = req.user._id;
   try {
     const result = await addFavorite(userId, productId);
-    res.status(201).json({ message: 'Added to favorites', data: result });
+    res.status(201).json({ status: 201, message: 'Added to favorites' });
   } catch (error) {
     if (error.code === 11000) {
       res.status(409).json({ message: 'Already in favorites' });
@@ -24,10 +25,10 @@ export const removeFavoriteController = async (req, res, next) => {
   const userId = req.user._id;
   const result = await removeFavorite(userId, productId);
   if (!result) {
-    res.status(404).json({ message: 'Not in favorites' });
+    next(createHttpError(404, 'Not in favorites'));
     return;
   }
-  res.json({ message: 'Removed from favorites' });
+  res.status(204).send();
 };
 
 export const getFavoritesController = async (req, res) => {
