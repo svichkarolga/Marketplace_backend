@@ -35,4 +35,4 @@ responses:
               type: object
               $ref: '../../../components/schemas/favorites.yaml'
   '409':
-    $ref: '../../components/responses/409.yaml'
+    $ref: ../../../components/responses/409.yaml

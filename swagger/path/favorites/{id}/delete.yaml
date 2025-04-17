@@ -2,7 +2,7 @@ tags:
   - Favorites
 summary: Remove from favorites
 operationId: RemoveFromFavorites
-description: 'Remove product from favorites by id'
+description: 'Remove a product from the users favorites by product ID'
 security:
   - bearerAuth: []
 parameters:
@@ -12,10 +12,10 @@ parameters:
     schema:
       type: string
       example: '65ca67e7ae7f10c88b598384'
-    description: Product ID to remove from favorites
+    description: The ID of the product to remove from favorites
 responses:
   '204':
-    description: Product successfully removed from favorites
+    # description: Product successfully removed from favorites
     $ref: ../../../components/responses/204.yaml
   '404':
     $ref: ../../../components/responses/404.yaml

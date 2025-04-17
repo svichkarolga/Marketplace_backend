@@ -34,5 +34,9 @@ export const removeFavoriteController = async (req, res, next) => {
 export const getFavoritesController = async (req, res) => {
   const userId = req.user._id;
   const favorites = await getFavoritesByUser(userId);
-  res.json({ message: 'Favorites fetched', data: favorites });
+  res.status(200).json({
+    status: 200,
+    message: 'Favorites fetched',
+    data: favorites,
+  });
 };
