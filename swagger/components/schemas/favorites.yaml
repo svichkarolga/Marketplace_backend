@@ -1,0 +1,21 @@
+type: object
+required:
+  - userId
+  - productId
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the favorite entry
+    example: '662003f3ec1a1b001e7e7740'
+  userId:
+    type: string
+    format: uuid
+    description: ID of the user who favorited the product
+    example: '661ffd0f494c8a001eec7202'
+  productId:
+    type: string
+    format: uuid
+    description: ID of the favorited product
+    example: '661fff5f494c8a001eec7204'
+  createdAt:
+    type: string

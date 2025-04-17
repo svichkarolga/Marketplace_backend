@@ -88,9 +88,9 @@ export const createProductSchema = Joi.object({
       'any.required': 'Region is required',
     }),
   city: Joi.string().min(3).max(20).required().messages({
-    'string.base': 'Name should be a string',
-    'string.min': 'Name should have at least 3 characters',
-    'string.max': 'Name should have at most 20 characters',
+    'string.base': 'City should be a string',
+    'string.min': 'City should have at least 3 characters',
+    'string.max': 'City should have at most 20 characters',
     'any.required': 'City is required',
   }),
   delivery: Joi.string().valid('self - pickup', 'mail').messages({

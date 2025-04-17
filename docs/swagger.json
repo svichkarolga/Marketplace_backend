@@ -1,1 +1,1262 @@
-{}
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "MarketPlace app",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a documentation of MarketPlace app"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth operations."
+    },
+    {
+      "name": "Product",
+      "description": "Operations about product."
+    },
+    {
+      "name": "User",
+      "description": "Operations about user."
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register user",
+        "operationId": "registerUser",
+        "description": "Register user with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "User's name",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "description": "User's email",
+                    "type": "string",
+                    "example": "john@gmail.com"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  },
+                  "phoneNumber": {
+                    "description": "User's phone number",
+                    "example": "+380503456789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Register user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registered user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login user",
+        "operationId": "loginUser",
+        "description": "Login user with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User's email",
+                    "type": "string",
+                    "example": "john@gmail.com"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh session",
+        "operationId": "refreshSession",
+        "description": "Refresh user's session",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "refreshToken",
+                  "sessionId"
+                ],
+                "properties": {
+                  "refreshToken": {
+                    "description": "Refresh token",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  },
+                  "sessionId": {
+                    "description": "Session id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Refresh session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully refreshed session!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "description": "Logout user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "sessionId"
+                ],
+                "properties": {
+                  "sessionId": {
+                    "description": "Session id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Logout user"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Favorites"
+        ],
+        "summary": "Get all favorites",
+        "operationId": "getAllFavorites",
+        "description": "Get all favorite products",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of favorite products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Favorites fetched"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/favorites"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Favorites"
+        ],
+        "summary": "Get all favorites",
+        "operationId": "getAllFavorites",
+        "description": "Get all favorite products",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of favorite products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Favorites fetched"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/favorites"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get product by id",
+        "operationId": "getProductByID",
+        "description": "Get product by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found product with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/product"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update product",
+        "operationId": "patchProduct",
+        "description": "Update a product with the provided payload. Only fields in the request body will be updated.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            },
+            "description": "ID of the product to update"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Name of product",
+                    "type": "string",
+                    "example": "Tea set"
+                  },
+                  "category": {
+                    "description": "Category product belongs to",
+                    "type": "string",
+                    "enum": [
+                      "children",
+                      "pet",
+                      "home",
+                      "fashion",
+                      "hobby",
+                      "sport",
+                      "tools",
+                      "gadget",
+                      "garden",
+                      "free"
+                    ],
+                    "example": "home"
+                  },
+                  "description": {
+                    "description": "Description of the product",
+                    "type": "string",
+                    "example": "A lovely porcelain tea set for a 6 person. In beige color."
+                  },
+                  "condition": {
+                    "description": "Is it new or used",
+                    "type": "string",
+                    "enum": [
+                      "new",
+                      "used"
+                    ],
+                    "example": "new"
+                  },
+                  "price": {
+                    "description": "The price for the product",
+                    "type": "number",
+                    "example": 1000
+                  },
+                  "phoneNumber": {
+                    "description": "Phone number of the seller",
+                    "type": "string",
+                    "example": "+380698785983"
+                  },
+                  "photo": {
+                    "description": "Link to the photo of the product",
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "region": {
+                    "description": "Please select one of 25 regions of Ukraine",
+                    "type": "string",
+                    "enum": [
+                      "Vinnytska",
+                      "Volynska",
+                      "Dnipropetrovska",
+                      "Donetska",
+                      "Zhytomyrska",
+                      "Zakarpatska",
+                      "Zaporizka",
+                      "Ivano-Frankivska",
+                      "Kyivska",
+                      "Kirovohradska",
+                      "Luhanska",
+                      "Lvivska",
+                      "Mykolaivska",
+                      "Odeska",
+                      "Poltavska",
+                      "Rivnenska",
+                      "Sumska",
+                      "Ternopilska",
+                      "Kharkivska",
+                      "Khersonska",
+                      "Khmelnytska",
+                      "Cherkaska",
+                      "Chernivetska",
+                      "Chernihivska",
+                      "Crimea"
+                    ],
+                    "example": "Kharkivska"
+                  },
+                  "city": {
+                    "description": "Type the city",
+                    "type": "string",
+                    "example": "Kharkiv"
+                  },
+                  "delivery": {
+                    "description": "Select what delivery you can provide",
+                    "type": "string",
+                    "enum": [
+                      "self-pickup",
+                      "mail"
+                    ],
+                    "example": "self-pickup"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated a product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated a product!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/updateProduct"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete product",
+        "operationId": "deleteProduct",
+        "description": "Delete a product by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            },
+            "description": "ID of the product to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted successfully",
+            "$ref": "#/components/responses/204"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/favorites": {
+      "get": {
+        "tags": [
+          "Favorites"
+        ],
+        "summary": "Get all favorites",
+        "operationId": "getUserFavorites",
+        "description": "Get all favorite products for the authorized user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of favorite products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Favorites fetched"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/favorites"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/favorites/{productId}": {
+      "post": {
+        "tags": [
+          "Favorites"
+        ],
+        "summary": "Add product to favorites",
+        "operationId": "addProductToFavorites",
+        "description": "Add a product to the user's favorites by product ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            },
+            "description": "The ID of the product to add to favorites"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product successfully added to favorites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Added to favorites!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/favorites"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Favorites"
+        ],
+        "summary": "Remove from favorites",
+        "operationId": "RemoveFromFavorites",
+        "description": "Remove a product from the users favorites by product ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            },
+            "description": "The ID of the product to remove from favorites"
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/204"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "name": {
+            "description": "Enter your name",
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "description": "User's email address",
+            "type": "string",
+            "example": "Doe@example.com"
+          },
+          "password": {
+            "description": "Enter your password",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "Phone number of the user",
+            "type": "string",
+            "example": "+380698785983"
+          }
+        }
+      },
+      "favorites": {
+        "type": "object",
+        "required": [
+          "userId",
+          "productId"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier of the favorite entry",
+            "example": "662003f3ec1a1b001e7e7740"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the user who favorited the product",
+            "example": "661ffd0f494c8a001eec7202"
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the favorited product",
+            "example": "661fff5f494c8a001eec7204"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "product": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "description",
+          "condition",
+          "price",
+          "phoneNumber",
+          "photo",
+          "region",
+          "city",
+          "delivery"
+        ],
+        "properties": {
+          "name": {
+            "description": "Name of product",
+            "type": "string",
+            "example": "Tea set"
+          },
+          "category": {
+            "description": "Category product belongs to",
+            "type": "string",
+            "enum": [
+              "children",
+              "pet",
+              "home",
+              "fashion",
+              "hobby",
+              "sport",
+              "tools",
+              "gadget",
+              "garden",
+              "free"
+            ],
+            "example": "home"
+          },
+          "description": {
+            "description": "Description of the product",
+            "type": "string",
+            "example": "A lovely porcelain tea set for a 6 person. In beige color."
+          },
+          "condition": {
+            "description": "Is it new or used",
+            "type": "string",
+            "enum": [
+              "new",
+              "used"
+            ],
+            "example": "new"
+          },
+          "price": {
+            "description": "The price for the product",
+            "type": "number",
+            "example": 1000
+          },
+          "phoneNumber": {
+            "description": "Phone number of the seller",
+            "type": "string",
+            "example": "+380698785983"
+          },
+          "photo": {
+            "description": "Link to the photo of the product",
+            "type": "string",
+            "format": "uri",
+            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+          },
+          "region": {
+            "description": "Please select one of 25 regions of Ukraine",
+            "type": "string",
+            "enum": [
+              "Vinnytska",
+              "Volynska",
+              "Dnipropetrovska",
+              "Donetska",
+              "Zhytomyrska",
+              "Zakarpatska",
+              "Zaporizka",
+              "Ivano-Frankivska",
+              "Kyivska",
+              "Kirovohradska",
+              "Luhanska",
+              "Lvivska",
+              "Mykolaivska",
+              "Odeska",
+              "Poltavska",
+              "Rivnenska",
+              "Sumska",
+              "Ternopilska",
+              "Kharkivska",
+              "Khersonska",
+              "Khmelnytska",
+              "Cherkaska",
+              "Chernivetska",
+              "Chernihivska",
+              "Crimea"
+            ],
+            "example": "Kharkivska"
+          },
+          "city": {
+            "description": "Type the city",
+            "type": "string",
+            "example": "Kharkiv"
+          },
+          "delivery": {
+            "description": "Select what delivery you can provide",
+            "type": "string",
+            "enum": [
+              "self-pickup",
+              "mail"
+            ],
+            "example": "self-pickup"
+          }
+        }
+      },
+      "updateProduct": {
+        "type": "object",
+        "required": [
+          "productId"
+        ],
+        "properties": {
+          "productId": {
+            "description": "ID of the product",
+            "type": "string",
+            "example": "60c72b2f9f1b2c001f6c6c2b"
+          },
+          "name": {
+            "description": "Name of product",
+            "type": "string",
+            "example": "Tea set"
+          },
+          "category": {
+            "description": "Category product belongs to",
+            "type": "string",
+            "enum": [
+              "children",
+              "pet",
+              "home",
+              "fashion",
+              "hobby",
+              "sport",
+              "tools",
+              "gadget",
+              "garden",
+              "free"
+            ],
+            "example": "home"
+          },
+          "description": {
+            "description": "Description of the product",
+            "type": "string",
+            "example": "A lovely porcelain tea set for a 6 person. In beige color."
+          },
+          "condition": {
+            "description": "Is it new or used",
+            "type": "string",
+            "enum": [
+              "new",
+              "used"
+            ],
+            "example": "new"
+          },
+          "price": {
+            "description": "The price for the product",
+            "type": "number",
+            "example": 1000
+          },
+          "phoneNumber": {
+            "description": "Phone number of the seller",
+            "type": "string",
+            "example": "+380698785983"
+          },
+          "photo": {
+            "description": "Link to the photo of the product",
+            "type": "string",
+            "format": "uri",
+            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+          },
+          "region": {
+            "description": "Please select one of 25 regions of Ukraine",
+            "type": "string",
+            "enum": [
+              "Vinnytska",
+              "Volynska",
+              "Dnipropetrovska",
+              "Donetska",
+              "Zhytomyrska",
+              "Zakarpatska",
+              "Zaporizka",
+              "Ivano-Frankivska",
+              "Kyivska",
+              "Kirovohradska",
+              "Luhanska",
+              "Lvivska",
+              "Mykolaivska",
+              "Odeska",
+              "Poltavska",
+              "Rivnenska",
+              "Sumska",
+              "Ternopilska",
+              "Kharkivska",
+              "Khersonska",
+              "Khmelnytska",
+              "Cherkaska",
+              "Chernivetska",
+              "Chernihivska",
+              "Crimea"
+            ],
+            "example": "Kharkivska"
+          },
+          "city": {
+            "description": "Type the city",
+            "type": "string",
+            "example": "Kharkiv"
+          },
+          "delivery": {
+            "description": "Select what delivery you can provide",
+            "type": "string",
+            "enum": [
+              "self-pickup",
+              "mail"
+            ],
+            "example": "self-pickup"
+          }
+        }
+      }
+    },
+    "responses": {
+      "204": {
+        "description": "Product successfully deleted",
+        "content": {}
+      },
+      "400": {
+        "description": "Invalid Id",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad Request"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Already in favorites",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Already in favorites"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Already in favorites"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

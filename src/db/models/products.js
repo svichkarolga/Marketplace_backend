@@ -41,7 +41,9 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-    photo: { type: String },
+    photo: {
+      type: String,
+    },
     sellerId: {
       type: Schema.Types.ObjectId,
       ref: 'users',
@@ -84,6 +86,7 @@ const productSchema = new Schema(
     delivery: {
       type: String,
       enum: ['self - pickup', 'mail'],
+      required: true,
     },
     favoritesCount: {
       type: Number,

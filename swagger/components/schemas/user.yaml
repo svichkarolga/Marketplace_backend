@@ -1,0 +1,21 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    description: Enter your name
+    type: string
+    example: John Doe
+  email:
+    description: User's email address
+    type: string
+    example: 'Doe@example.com'
+  password:
+    description: Enter your password
+    type: string
+  phoneNumber:
+    description: Phone number of the user
+    type: string
+    example: '+380698785983'

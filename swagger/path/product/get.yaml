@@ -1,0 +1,27 @@
+tags:
+  - Favorites
+summary: Get all favorites
+operationId: getAllFavorites
+description: 'Get all favorite products'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: List of favorite products
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: Favorites fetched
+            data:
+              type: array
+              items:
+                $ref: ../../components/schemas/favorites.yaml
+  '401':
+    $ref: '../../components/responses/401.yaml'

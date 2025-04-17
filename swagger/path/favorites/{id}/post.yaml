@@ -1,0 +1,38 @@
+tags:
+  - Favorites
+summary: Add product to favorites
+operationId: addProductToFavorites
+description: Add a product to the user's favorites by product ID
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: productId
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+    description: The ID of the product to add to favorites
+responses:
+  '201':
+    description: Product successfully added to favorites
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Added to favorites!
+            data:
+              type: object
+              $ref: '../../../components/schemas/favorites.yaml'
+  '409':
+    $ref: ../../../components/responses/409.yaml
