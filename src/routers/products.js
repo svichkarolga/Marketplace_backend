@@ -15,6 +15,7 @@ import {
 import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { upload } from '../middlewares/multer.js';
+import { checkProductOwnership } from '../middlewares/checkProductOwnership.js';
 
 const router = Router();
 
@@ -34,11 +35,17 @@ router.post(
 router.patch(
   '/:productId',
   isValidId,
+  checkProductOwnership,
   upload.single('photo'),
   validateBody(updateProductSchema),
   ctrlWrapper(patchProductController),
 );
 
-router.delete('/:productId', isValidId, ctrlWrapper(deleteProductController));
+router.delete(
+  '/:productId',
+  isValidId,
+  checkProductOwnership,
+  ctrlWrapper(deleteProductController),
+);
 
 export default router;
