@@ -172,7 +172,7 @@ export const updateProductSchema = Joi.object({
     'string.min': 'Name should have at least 3 characters',
     'string.max': 'Name should have at most 20 characters',
   }),
-  delivery: Joi.string().valid('self - pickup', 'mail').messages({
+  delivery: Joi.string().valid('self-pickup', 'mail').messages({
     'any.only': 'Field should have one of this values: self - pickup, mail',
   }),
   sellerId: Joi.string().custom((value, helper) => {

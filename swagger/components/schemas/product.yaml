@@ -14,7 +14,6 @@ properties:
   name:
     description: Name of product
     type: string
-    example: Tea set
   category:
     description: Category product belongs to
     type: string
@@ -29,31 +28,25 @@ properties:
       - gadget
       - garden
       - free
-    example: home
   description:
     description: Description of the product
     type: string
-    example: A lovely porcelain tea set for a 6 person. In beige color.
   condition:
     description: Is it new or used
     type: string
     enum:
       - new
       - used
-    example: new
   price:
     description: The price for the product
     type: number
-    example: 1000
   phoneNumber:
     description: Phone number of the seller
     type: string
-    example: '+380698785983'
   photo:
     description: Link to the photo of the product
     type: string
     format: uri
-    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
   region:
     description: Please select one of 25 regions of Ukraine
     type: string
@@ -83,15 +76,12 @@ properties:
       - Chernivetska
       - Chernihivska
       - Crimea
-    example: Kharkivska
   city:
     description: Type the city
     type: string
-    example: Kharkiv
   delivery:
     description: Select what delivery you can provide
     type: string
     enum:
       - self-pickup
       - mail
-    example: self-pickup

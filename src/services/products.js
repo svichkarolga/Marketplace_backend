@@ -65,7 +65,6 @@ export const updateProduct = async (productId, payload, options = {}) => {
   const rawResult = await ProductsCollection.findOneAndUpdate(
     {
       _id: productId,
-      // userId
     },
     payload,
 
