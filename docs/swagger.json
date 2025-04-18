@@ -560,172 +560,137 @@
         "tags": [
           "Products"
         ],
-        "summary": "Get list of products",
-        "operationId": "getProducts",
-        "description": "Get list of products with this endpoint",
+        "summary": "Create product",
+        "operationId": "createProduct",
+        "description": "Create a new product",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "schema": {
-              "type": "integer"
-            },
-            "example": 1
-          },
-          {
-            "in": "query",
-            "name": "perPage",
-            "schema": {
-              "type": "integer",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "sortBy",
-            "schema": {
-              "type": "string",
-              "example": "category"
-            },
-            "description": "Field to sort contacts by"
-          },
-          {
-            "in": "query",
-            "name": "sortOrder",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "example": "asc"
-            },
-            "description": "Sort order (ascending or descending)."
-          },
-          {
-            "in": "query",
-            "name": "category",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "children",
-                "pet",
-                "home",
-                "fashion",
-                "hobby",
-                "sport",
-                "tools",
-                "gadget",
-                "garden",
-                "free"
-              ],
-              "example": "home"
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxPrice",
-            "schema": {
-              "type": "number",
-              "example": 10
-            }
-          },
-          {
-            "in": "query",
-            "name": "minPrice",
-            "schema": {
-              "type": "number",
-              "example": 100
-            }
-          },
-          {
-            "in": "query",
-            "name": "price",
-            "schema": {
-              "type": "number",
-              "example": 160
-            }
-          },
-          {
-            "in": "query",
-            "name": "name",
-            "schema": {
-              "type": "string",
-              "example": "tea set"
-            }
-          },
-          {
-            "in": "query",
-            "name": "condition",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "new",
-                "used"
-              ],
-              "example": "new"
-            }
-          },
-          {
-            "in": "query",
-            "name": "region",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "Vinnytska",
-                "Volynska",
-                "Dnipropetrovska",
-                "Donetska",
-                "Zhytomyrska",
-                "Zakarpatska",
-                "Zaporizka",
-                "Ivano-Frankivska",
-                "Kyivska",
-                "Kirovohradska",
-                "Luhanska",
-                "Lvivska",
-                "Mykolaivska",
-                "Odeska",
-                "Poltavska",
-                "Rivnenska",
-                "Sumska",
-                "Ternopilska",
-                "Kharkivska",
-                "Khersonska",
-                "Khmelnytska",
-                "Cherkaska",
-                "Chernivetska",
-                "Chernihivska",
-                "Crimea"
-              ],
-              "example": "Kharkivska"
-            }
-          },
-          {
-            "in": "query",
-            "name": "city",
-            "schema": {
-              "type": "string",
-              "example": "Kharkiv"
-            }
-          },
-          {
-            "in": "query",
-            "name": "sellerId",
-            "schema": {
-              "type": "string",
-              "example": "68002419bfdce5d8b27cb918"
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "category",
+                  "description",
+                  "condition",
+                  "price",
+                  "phoneNumber",
+                  "photo",
+                  "region",
+                  "city",
+                  "delivery"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "Name of product",
+                    "type": "string",
+                    "example": "Tea set"
+                  },
+                  "category": {
+                    "description": "Category product belongs to",
+                    "type": "string",
+                    "enum": [
+                      "children",
+                      "pet",
+                      "home",
+                      "fashion",
+                      "hobby",
+                      "sport",
+                      "tools",
+                      "gadget",
+                      "garden",
+                      "free"
+                    ],
+                    "example": "home"
+                  },
+                  "description": {
+                    "description": "Description of the product",
+                    "type": "string",
+                    "example": "A lovely porcelain tea set for a 6 person. In beige color."
+                  },
+                  "condition": {
+                    "description": "Is it new or used",
+                    "type": "string",
+                    "enum": [
+                      "new",
+                      "used"
+                    ],
+                    "example": "new"
+                  },
+                  "price": {
+                    "description": "The price for the product",
+                    "type": "number",
+                    "example": 1000
+                  },
+                  "phoneNumber": {
+                    "description": "Phone number of the seller",
+                    "type": "string",
+                    "example": "+380698785983"
+                  },
+                  "photo": {
+                    "description": "Link to the photo of the product",
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "region": {
+                    "description": "Please select one of 25 regions of Ukraine",
+                    "type": "string",
+                    "enum": [
+                      "Vinnytska",
+                      "Volynska",
+                      "Dnipropetrovska",
+                      "Donetska",
+                      "Zhytomyrska",
+                      "Zakarpatska",
+                      "Zaporizka",
+                      "Ivano-Frankivska",
+                      "Kyivska",
+                      "Kirovohradska",
+                      "Luhanska",
+                      "Lvivska",
+                      "Mykolaivska",
+                      "Odeska",
+                      "Poltavska",
+                      "Rivnenska",
+                      "Sumska",
+                      "Ternopilska",
+                      "Kharkivska",
+                      "Khersonska",
+                      "Khmelnytska",
+                      "Cherkaska",
+                      "Chernivetska",
+                      "Chernihivska",
+                      "Crimea"
+                    ],
+                    "example": "Kharkivska"
+                  },
+                  "city": {
+                    "description": "Type the city",
+                    "type": "string",
+                    "example": "Kharkiv"
+                  },
+                  "delivery": {
+                    "description": "Select what delivery you can provide",
+                    "type": "string",
+                    "enum": [
+                      "self-pickup",
+                      "mail"
+                    ],
+                    "example": "self-pickup"
+                  }
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
-          "200": {
-            "description": "Successfully found products!",
+          "201": {
+            "description": "Successfully created a product",
             "content": {
               "application/json": {
                 "schema": {
@@ -738,63 +703,26 @@
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 200
+                      "example": 201
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found products!"
+                      "example": "Successfully created a product!"
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "data",
-                        "page",
-                        "perPage",
-                        "totalItems",
-                        "totalPages",
-                        "hasNextPage",
-                        "hasPreviousPage"
-                      ],
-                      "properties": {
-                        "data": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/product"
-                          }
-                        },
-                        "page": {
-                          "type": "number",
-                          "example": 2
-                        },
-                        "perPage": {
-                          "type": "number",
-                          "example": 4
-                        },
-                        "totalItems": {
-                          "type": "number",
-                          "example": 4
-                        },
-                        "totalPages": {
-                          "type": "number",
-                          "example": 4
-                        },
-                        "hasNextPage": {
-                          "type": "boolean",
-                          "example": false
-                        },
-                        "hasPreviousPage": {
-                          "type": "boolean",
-                          "example": true
-                        }
-                      }
+                      "$ref": "#/components/schemas/product"
                     }
                   }
                 }
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
