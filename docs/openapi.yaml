@@ -14,7 +14,7 @@ tags:
   - name: Favorites
     description: Operations about favorites.
 servers:
-  # - url: https://.onrender.com
+  - url: https://marketplace-backend-vrwj.onrender.com
   - url: http://localhost:3000
 paths:
   /auth/register:

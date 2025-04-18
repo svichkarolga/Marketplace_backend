@@ -85,7 +85,7 @@ const productSchema = new Schema(
     },
     delivery: {
       type: String,
-      enum: ['self - pickup', 'mail'],
+      enum: ['selfPickup', 'mail'],
       required: true,
     },
     favoritesCount: {
