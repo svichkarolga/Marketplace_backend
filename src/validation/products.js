@@ -93,8 +93,8 @@ export const createProductSchema = Joi.object({
     'string.max': 'City should have at most 20 characters',
     'any.required': 'City is required',
   }),
-  delivery: Joi.string().valid('self - pickup', 'mail').messages({
-    'any.only': 'Field should have one of this values: self - pickup, mail',
+  delivery: Joi.string().valid('selfPickup', 'mail').messages({
+    'any.only': 'Field should have one of this values: selfPickup, mail',
   }),
   sellerId: Joi.string().custom((value, helper) => {
     if (value && !isValidObjectId(value)) {
@@ -172,8 +172,8 @@ export const updateProductSchema = Joi.object({
     'string.min': 'Name should have at least 3 characters',
     'string.max': 'Name should have at most 20 characters',
   }),
-  delivery: Joi.string().valid('self-pickup', 'mail').messages({
-    'any.only': 'Field should have one of this values: self - pickup, mail',
+  delivery: Joi.string().valid('selfPickup', 'mail').messages({
+    'any.only': 'Field should have one of this values: selfPickup, mail',
   }),
   sellerId: Joi.string().custom((value, helper) => {
     if (value && !isValidObjectId(value)) {

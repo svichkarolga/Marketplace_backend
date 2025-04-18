@@ -11,6 +11,9 @@
   },
   "servers": [
     {
+      "url": "https://marketplace-backend-vrwj.onrender.com"
+    },
+    {
       "url": "http://localhost:3000"
     }
   ],
@@ -678,10 +681,10 @@
                     "description": "Select what delivery you can provide",
                     "type": "string",
                     "enum": [
-                      "self-pickup",
+                      "selfPickup",
                       "mail"
                     ],
-                    "example": "self-pickup"
+                    "example": "selfPickup"
                   }
                 }
               }
@@ -911,10 +914,10 @@
                     "description": "Select what delivery you can provide",
                     "type": "string",
                     "enum": [
-                      "self-pickup",
+                      "selfPickup",
                       "mail"
                     ],
-                    "example": "self-pickup"
+                    "example": "selfPickup"
                   }
                 }
               }
@@ -1189,8 +1192,7 @@
         "properties": {
           "name": {
             "description": "Name of product",
-            "type": "string",
-            "example": "Tea set"
+            "type": "string"
           },
           "category": {
             "description": "Category product belongs to",
@@ -1206,13 +1208,11 @@
               "gadget",
               "garden",
               "free"
-            ],
-            "example": "home"
+            ]
           },
           "description": {
             "description": "Description of the product",
-            "type": "string",
-            "example": "A lovely porcelain tea set for a 6 person. In beige color."
+            "type": "string"
           },
           "condition": {
             "description": "Is it new or used",
@@ -1220,24 +1220,20 @@
             "enum": [
               "new",
               "used"
-            ],
-            "example": "new"
+            ]
           },
           "price": {
             "description": "The price for the product",
-            "type": "number",
-            "example": 1000
+            "type": "number"
           },
           "phoneNumber": {
             "description": "Phone number of the seller",
-            "type": "string",
-            "example": "+380698785983"
+            "type": "string"
           },
           "photo": {
             "description": "Link to the photo of the product",
             "type": "string",
-            "format": "uri",
-            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+            "format": "uri"
           },
           "region": {
             "description": "Please select one of 25 regions of Ukraine",
@@ -1268,22 +1264,19 @@
               "Chernivetska",
               "Chernihivska",
               "Crimea"
-            ],
-            "example": "Kharkivska"
+            ]
           },
           "city": {
             "description": "Type the city",
-            "type": "string",
-            "example": "Kharkiv"
+            "type": "string"
           },
           "delivery": {
             "description": "Select what delivery you can provide",
             "type": "string",
             "enum": [
-              "self-pickup",
+              "selfPickup",
               "mail"
-            ],
-            "example": "self-pickup"
+            ]
           }
         }
       },
@@ -1295,13 +1288,11 @@
         "properties": {
           "productId": {
             "description": "ID of the product",
-            "type": "string",
-            "example": "60c72b2f9f1b2c001f6c6c2b"
+            "type": "string"
           },
           "name": {
             "description": "Name of product",
-            "type": "string",
-            "example": "Tea set"
+            "type": "string"
           },
           "category": {
             "description": "Category product belongs to",
@@ -1317,13 +1308,11 @@
               "gadget",
               "garden",
               "free"
-            ],
-            "example": "home"
+            ]
           },
           "description": {
             "description": "Description of the product",
-            "type": "string",
-            "example": "A lovely porcelain tea set for a 6 person. In beige color."
+            "type": "string"
           },
           "condition": {
             "description": "Is it new or used",
@@ -1331,24 +1320,20 @@
             "enum": [
               "new",
               "used"
-            ],
-            "example": "new"
+            ]
           },
           "price": {
             "description": "The price for the product",
-            "type": "number",
-            "example": 1000
+            "type": "number"
           },
           "phoneNumber": {
             "description": "Phone number of the seller",
-            "type": "string",
-            "example": "+380698785983"
+            "type": "string"
           },
           "photo": {
             "description": "Link to the photo of the product",
             "type": "string",
-            "format": "uri",
-            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+            "format": "uri"
           },
           "region": {
             "description": "Please select one of 25 regions of Ukraine",
@@ -1379,22 +1364,19 @@
               "Chernivetska",
               "Chernihivska",
               "Crimea"
-            ],
-            "example": "Kharkivska"
+            ]
           },
           "city": {
             "description": "Type the city",
-            "type": "string",
-            "example": "Kharkiv"
+            "type": "string"
           },
           "delivery": {
             "description": "Select what delivery you can provide",
             "type": "string",
             "enum": [
-              "self-pickup",
+              "selfPickup",
               "mail"
-            ],
-            "example": "self-pickup"
+            ]
           }
         }
       },

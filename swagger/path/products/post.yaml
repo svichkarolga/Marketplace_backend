@@ -102,9 +102,9 @@ requestBody:
             description: Select what delivery you can provide
             type: string
             enum:
-              - self-pickup
+              - selfPickup
               - mail
-            example: self-pickup
+            example: selfPickup
 responses:
   '201':
     description: Successfully created a product
