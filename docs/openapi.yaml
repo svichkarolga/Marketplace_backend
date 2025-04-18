@@ -9,10 +9,10 @@ info:
 tags:
   - name: Auth
     description: Auth operations.
-  - name: Product
+  - name: Products
     description: Operations about product.
-  - name: User
-    description: Operations about user.
+  - name: Favorites
+    description: Operations about favorites.
 servers:
   # - url: https://.onrender.com
   - url: http://localhost:3000
@@ -31,16 +31,16 @@ paths:
       $ref: ../swagger/path/auth/logout.yaml
   /products:
     get:
-      $ref: ../swagger/path/product/get.yaml
+      $ref: ../swagger/path/products/get.yaml
     post:
-      $ref: ../swagger/path/product/get.yaml
+      $ref: '../swagger/path/products/post.yaml'
   /products/{productId}:
     get:
-      $ref: ../swagger/path/product/{id}/get.yaml
+      $ref: ../swagger/path/products/{id}/get.yaml
     patch:
-      $ref: ../swagger/path/product/{id}/patch.yaml
+      $ref: ../swagger/path/products/{id}/patch.yaml
     delete:
-      $ref: ../swagger/path/product/{id}/delete.yaml
+      $ref: ../swagger/path/products/{id}/delete.yaml
   /favorites:
     get:
       $ref: '../swagger/path/favorites/get.yaml'

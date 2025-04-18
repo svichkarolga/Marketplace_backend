@@ -20,12 +20,12 @@
       "description": "Auth operations."
     },
     {
-      "name": "Product",
+      "name": "Products",
       "description": "Operations about product."
     },
     {
-      "name": "User",
-      "description": "Operations about user."
+      "name": "Favorites",
+      "description": "Operations about favorites."
     }
   ],
   "paths": {
@@ -316,36 +316,234 @@
     "/products": {
       "get": {
         "tags": [
-          "Favorites"
+          "Products"
         ],
-        "summary": "Get all favorites",
-        "operationId": "getAllFavorites",
-        "description": "Get all favorite products",
+        "summary": "Get list of products",
+        "operationId": "getProducts",
+        "description": "Get list of products with this endpoint",
         "security": [
           {
             "bearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "example": "category"
+            },
+            "description": "Field to sort contacts by"
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "example": "asc"
+            },
+            "description": "Sort order (ascending or descending)."
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "children",
+                "pet",
+                "home",
+                "fashion",
+                "hobby",
+                "sport",
+                "tools",
+                "gadget",
+                "garden",
+                "free"
+              ],
+              "example": "home"
+            }
+          },
+          {
+            "in": "query",
+            "name": "maxPrice",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "minPrice",
+            "schema": {
+              "type": "number",
+              "example": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "schema": {
+              "type": "number",
+              "example": 160
+            }
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "example": "tea set"
+            }
+          },
+          {
+            "in": "query",
+            "name": "condition",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "new",
+                "used"
+              ],
+              "example": "new"
+            }
+          },
+          {
+            "in": "query",
+            "name": "region",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Vinnytska",
+                "Volynska",
+                "Dnipropetrovska",
+                "Donetska",
+                "Zhytomyrska",
+                "Zakarpatska",
+                "Zaporizka",
+                "Ivano-Frankivska",
+                "Kyivska",
+                "Kirovohradska",
+                "Luhanska",
+                "Lvivska",
+                "Mykolaivska",
+                "Odeska",
+                "Poltavska",
+                "Rivnenska",
+                "Sumska",
+                "Ternopilska",
+                "Kharkivska",
+                "Khersonska",
+                "Khmelnytska",
+                "Cherkaska",
+                "Chernivetska",
+                "Chernihivska",
+                "Crimea"
+              ],
+              "example": "Kharkivska"
+            }
+          },
+          {
+            "in": "query",
+            "name": "city",
+            "schema": {
+              "type": "string",
+              "example": "Kharkiv"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sellerId",
+            "schema": {
+              "type": "string",
+              "example": "68002419bfdce5d8b27cb918"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "List of favorite products",
+            "description": "Successfully found products!",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
+                    "status",
                     "message",
                     "data"
                   ],
                   "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
                     "message": {
                       "type": "string",
-                      "example": "Favorites fetched"
+                      "example": "Successfully found products!"
                     },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/favorites"
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/product"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
                       }
                     }
                   }
@@ -360,36 +558,234 @@
       },
       "post": {
         "tags": [
-          "Favorites"
+          "Products"
         ],
-        "summary": "Get all favorites",
-        "operationId": "getAllFavorites",
-        "description": "Get all favorite products",
+        "summary": "Get list of products",
+        "operationId": "getProducts",
+        "description": "Get list of products with this endpoint",
         "security": [
           {
             "bearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "example": "category"
+            },
+            "description": "Field to sort contacts by"
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "example": "asc"
+            },
+            "description": "Sort order (ascending or descending)."
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "children",
+                "pet",
+                "home",
+                "fashion",
+                "hobby",
+                "sport",
+                "tools",
+                "gadget",
+                "garden",
+                "free"
+              ],
+              "example": "home"
+            }
+          },
+          {
+            "in": "query",
+            "name": "maxPrice",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "minPrice",
+            "schema": {
+              "type": "number",
+              "example": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "schema": {
+              "type": "number",
+              "example": 160
+            }
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "example": "tea set"
+            }
+          },
+          {
+            "in": "query",
+            "name": "condition",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "new",
+                "used"
+              ],
+              "example": "new"
+            }
+          },
+          {
+            "in": "query",
+            "name": "region",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Vinnytska",
+                "Volynska",
+                "Dnipropetrovska",
+                "Donetska",
+                "Zhytomyrska",
+                "Zakarpatska",
+                "Zaporizka",
+                "Ivano-Frankivska",
+                "Kyivska",
+                "Kirovohradska",
+                "Luhanska",
+                "Lvivska",
+                "Mykolaivska",
+                "Odeska",
+                "Poltavska",
+                "Rivnenska",
+                "Sumska",
+                "Ternopilska",
+                "Kharkivska",
+                "Khersonska",
+                "Khmelnytska",
+                "Cherkaska",
+                "Chernivetska",
+                "Chernihivska",
+                "Crimea"
+              ],
+              "example": "Kharkivska"
+            }
+          },
+          {
+            "in": "query",
+            "name": "city",
+            "schema": {
+              "type": "string",
+              "example": "Kharkiv"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sellerId",
+            "schema": {
+              "type": "string",
+              "example": "68002419bfdce5d8b27cb918"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "List of favorite products",
+            "description": "Successfully found products!",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
+                    "status",
                     "message",
                     "data"
                   ],
                   "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
                     "message": {
                       "type": "string",
-                      "example": "Favorites fetched"
+                      "example": "Successfully found products!"
                     },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/favorites"
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/product"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
                       }
                     }
                   }
@@ -848,35 +1244,6 @@
           }
         }
       },
-      "favorites": {
-        "type": "object",
-        "required": [
-          "userId",
-          "productId"
-        ],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Unique identifier of the favorite entry",
-            "example": "662003f3ec1a1b001e7e7740"
-          },
-          "userId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "ID of the user who favorited the product",
-            "example": "661ffd0f494c8a001eec7202"
-          },
-          "productId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "ID of the favorited product",
-            "example": "661fff5f494c8a001eec7204"
-          },
-          "createdAt": {
-            "type": "string"
-          }
-        }
-      },
       "product": {
         "type": "object",
         "required": [
@@ -1100,6 +1467,35 @@
               "mail"
             ],
             "example": "self-pickup"
+          }
+        }
+      },
+      "favorites": {
+        "type": "object",
+        "required": [
+          "userId",
+          "productId"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier of the favorite entry",
+            "example": "662003f3ec1a1b001e7e7740"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the user who add to favorite the product",
+            "example": "661ffd0f494c8a001eec7202"
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the favorite product",
+            "example": "661fff5f494c8a001eec7204"
+          },
+          "createdAt": {
+            "type": "string"
           }
         }
       }

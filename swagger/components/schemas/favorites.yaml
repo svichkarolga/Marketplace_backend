@@ -10,12 +10,12 @@ properties:
   userId:
     type: string
     format: uuid
-    description: ID of the user who favorited the product
+    description: ID of the user who add to favorite the product
     example: '661ffd0f494c8a001eec7202'
   productId:
     type: string
     format: uuid
-    description: ID of the favorited product
+    description: ID of the favorite product
     example: '661fff5f494c8a001eec7204'
   createdAt:
     type: string
