@@ -5,7 +5,7 @@ import {
 } from '../controllers/user.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { authenticate } from '../middlewares/authenticate.js';
-import { isValidId } from '../middlewares/isValidId.js';
+import { validateId } from '../middlewares/validateId.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { updateUserSchema } from '../validation/user.js';
 import { upload } from '../middlewares/multer.js';
@@ -18,7 +18,7 @@ router.get('/:id', ctrlWrapper(getUserByIdController));
 
 router.patch(
   '/:id',
-  //   isValidId,
+  validateId,
   upload.single('photo'),
   validateBody(updateUserSchema),
   ctrlWrapper(patchUserController),

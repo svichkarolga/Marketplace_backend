@@ -10,7 +10,7 @@ export const updateUser = async (userId, payload, options = {}) => {
     { _id: userId },
     payload,
     {
-      new: true, // повернути оновлений документ
+      new: true,
       ...options,
     },
   );

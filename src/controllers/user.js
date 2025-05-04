@@ -22,7 +22,6 @@ export const getUserByIdController = async (req, res, next) => {
 export const patchUserController = async (req, res, next) => {
   try {
     const { id: userId } = req.params;
-
     const photo = req.file;
     let photoUrl;
     if (photo) {
