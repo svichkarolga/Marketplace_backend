@@ -1136,6 +1136,182 @@
           }
         }
       }
+    },
+    "/user/{userId}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user by id",
+        "operationId": "getUserByID",
+        "description": "Get user by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "68023f490dd9b7b67adfbedc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found user with id 68023f490dd9b7b67adfbedc!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user",
+        "operationId": "patchUser",
+        "description": "Update a user with the provided payload. Only fields in the request body will be updated.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "68023f490dd9b7b67adfbedc"
+            },
+            "description": "ID of the user to update"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Name of user",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "phoneNumber": {
+                    "description": "Phone number of the user",
+                    "type": "string",
+                    "example": "+380698785983"
+                  },
+                  "photo": {
+                    "description": "Link to users's photo",
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "linkField1": {
+                    "description": "Link to the social profiles (example http://instagram.com)",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "linkField2": {
+                    "description": "Link to the social profiles (example http://instagram.com)",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "linkField3": {
+                    "description": "Link to the social profiles (example http://instagram.com)",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "linkField4": {
+                    "description": "Link to the social profiles (example http://instagram.com)",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "linkField5": {
+                    "description": "Link to the social profiles (example http://instagram.com)",
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated a contact!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
     }
   },
   "components": {

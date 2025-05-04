@@ -1,0 +1,38 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    description: Enter your name
+    type: string
+    example: 'John Doe'
+  phoneNumber:
+    description: Phone number of the user
+    type: string
+    example: '+380698785983'
+  photo:
+    description: Link to the photo of the user
+    type: string
+    format: uri
+  linkField1:
+    description: Link to the social profiles (example http://instagram.com)
+    type: string
+    format: uri
+  linkField2:
+    description: Link to the social profiles (example http://instagram.com)
+    type: string
+    format: uri
+  linkField3:
+    description: Link to the social profiles (example http://instagram.com)
+    type: string
+    format: uri
+  linkField4:
+    description: Link to the social profiles (example http://instagram.com)
+    type: string
+    format: uri
+  linkField5:
+    description: Link to the social profiles (example http://instagram.com)
+    type: string
+    format: uri
