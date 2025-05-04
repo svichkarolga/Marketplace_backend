@@ -7,7 +7,7 @@ properties:
   name:
     description: Enter your name
     type: string
-    example: John Doe
+    example: 'John Doe'
   email:
     description: User's email address
     type: string
