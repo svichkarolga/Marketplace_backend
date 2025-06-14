@@ -13,6 +13,7 @@ const usersSchema = new Schema(
     linkField4: { type: String },
     linkField5: { type: String },
     sellerRating: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
   },
   { timestamps: true, versionKey: false },
 );
