@@ -5,6 +5,13 @@ export const getUserById = async (userId) => {
   return user;
 };
 
+export const getSellerProfile = async (sellerId) => {
+  const seller = await UsersCollection.findOne({ _id: sellerId })
+    .select('-password -email -phoneNumber')
+    .lean();
+  return seller;
+};
+
 export const updateUser = async (userId, payload, options = {}) => {
   const updatedUser = await UsersCollection.findOneAndUpdate(
     { _id: userId },
