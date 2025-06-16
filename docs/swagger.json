@@ -29,6 +29,14 @@
     {
       "name": "Favorites",
       "description": "Operations about favorites."
+    },
+    {
+      "name": "User",
+      "description": "Operations about user."
+    },
+    {
+      "name": "Reviews",
+      "description": "Operations about reviews."
     }
   ],
   "paths": {
@@ -1312,6 +1320,275 @@
           }
         }
       }
+    },
+    "/reviews/{sellerId}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get seller reviews",
+        "operationId": "getSellerReviews",
+        "description": "Get all reviews for specific seller",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the seller",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{24}$"
+            },
+            "example": "507f1f77bcf86cd799439011"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved reviews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/reviews"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Create review",
+        "operationId": "createReview",
+        "description": "Create a new review for a seller",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the seller being reviewed",
+            "schema": {
+              "type": "string"
+            },
+            "example": "507f1f77bcf86cd799439011"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "rating"
+                ],
+                "properties": {
+                  "rating": {
+                    "description": "Rating from 1 to 5 stars",
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 5
+                  },
+                  "comment": {
+                    "description": "Optional review text",
+                    "type": "string",
+                    "example": "Excellent seller, fast delivery"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created a review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Review created successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "65c3b5b5f5a1b8c1f4d7e3f2"
+                        },
+                        "seller": {
+                          "type": "string",
+                          "example": "507f1f77bcf86cd799439011"
+                        },
+                        "buyer": {
+                          "type": "string",
+                          "example": "507f191e810c19729de860ea"
+                        },
+                        "rating": {
+                          "type": "integer",
+                          "example": 5
+                        },
+                        "comment": {
+                          "type": "string",
+                          "example": "Excellent seller, fast delivery"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2023-05-15T10:00:00Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2023-05-15T10:00:00Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/reviews/{sellerId}/stats": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get seller rating stats",
+        "operationId": "getRatingStats",
+        "description": "Get seller rating statistics with reviews",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the seller",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{24}$",
+              "example": "507f1f77bcf86cd799439011"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved stats",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "type": "object",
+                          "properties": {
+                            "averageRating": {
+                              "type": "number",
+                              "format": "float",
+                              "example": 4.5
+                            },
+                            "totalReviews": {
+                              "type": "integer",
+                              "example": 10
+                            },
+                            "ratingDistribution": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer"
+                              },
+                              "example": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4
+                              ]
+                            }
+                          }
+                        },
+                        "reviews": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/reviews"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1579,6 +1856,43 @@
             "format": "uuid",
             "description": "ID of the favorite product",
             "example": "661fff5f494c8a001eec7204"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "reviews": {
+        "type": "object",
+        "required": [
+          "seller",
+          "buyer",
+          "rating"
+        ],
+        "properties": {
+          "seller": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the user who sale a product",
+            "example": "661ffd0f494c8a001eec7202"
+          },
+          "buyer": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the user who buy a product",
+            "example": "661fff5f494c8a001eec7204"
+          },
+          "rating": {
+            "type": "number",
+            "description": "Product/service rating (1-5 stars)",
+            "minimum": 1,
+            "maximum": 5,
+            "example": 5
+          },
+          "comment": {
+            "type": "string",
+            "description": "Optional review text",
+            "example": "Excellent seller, fast delivery"
           },
           "createdAt": {
             "type": "string"
