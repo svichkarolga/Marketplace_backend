@@ -1,0 +1,81 @@
+tags:
+  - Reviews
+summary: Create review
+operationId: createReview
+description: 'Create a new review for a seller'
+security:
+  - bearerAuth: []
+parameters:
+  - name: sellerId
+    in: path
+    required: true
+    description: ID of the seller being reviewed
+    schema:
+      type: string
+    example: '507f1f77bcf86cd799439011'
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - rating
+        properties:
+          rating:
+            description: Rating from 1 to 5 stars
+            type: number
+            minimum: 1
+            maximum: 5
+            example: 5
+          comment:
+            description: Optional review text
+            type: string
+            example: 'Excellent seller, fast delivery'
+responses:
+  '201':
+    description: Successfully created a review
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: number
+              example: 201
+            message:
+              type: string
+              example: 'Review created successfully'
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: '65c3b5b5f5a1b8c1f4d7e3f2'
+                seller:
+                  type: string
+                  example: '507f1f77bcf86cd799439011'
+                buyer:
+                  type: string
+                  example: '507f191e810c19729de860ea'
+                rating:
+                  type: integer
+                  example: 5
+                comment:
+                  type: string
+                  example: 'Excellent seller, fast delivery'
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: '2023-05-15T10:00:00Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  example: '2023-05-15T10:00:00Z'
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml

@@ -27,12 +27,10 @@ export const updateSellerRating = async (sellerId) => {
     sellerRating: 0,
     ratingCount: 0,
   };
-
   if (result.length > 0) {
     updateData.sellerRating = parseFloat(result[0].averageRating.toFixed(1));
     updateData.ratingCount = result[0].count;
   }
-
   await UsersCollection.findByIdAndUpdate(sellerId, updateData);
   return updateData;
 };
@@ -47,22 +45,17 @@ export const getSellerReviewsWithStats = async (sellerId) => {
   const reviews = await ReviewsCollection.find({ seller: sellerId })
     .populate('buyer', 'name photo')
     .sort({ createdAt: -1 });
-
-  // Рассчитываем статистику
   const stats = {
     averageRating: 0,
     totalReviews: reviews.length,
-    ratingDistribution: [0, 0, 0, 0, 0], // [1★, 2★, 3★, 4★, 5★]
+    ratingDistribution: [0, 0, 0, 0, 0],
   };
-
   if (reviews.length > 0) {
     const sum = reviews.reduce((acc, review) => {
       stats.ratingDistribution[review.rating - 1]++;
       return acc + review.rating;
     }, 0);
-
     stats.averageRating = parseFloat((sum / reviews.length).toFixed(1));
   }
-
   return { reviews, stats };
 };

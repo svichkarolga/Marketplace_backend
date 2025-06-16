@@ -13,6 +13,10 @@ tags:
     description: Operations about product.
   - name: Favorites
     description: Operations about favorites.
+  - name: User
+    description: Operations about user.
+  - name: Reviews
+    description: Operations about reviews.
 servers:
   - url: https://marketplace-backend-vrwj.onrender.com
   - url: http://localhost:3000
@@ -54,6 +58,15 @@ paths:
       $ref: '../swagger/path/user/{id}/get.yaml'
     patch:
       $ref: '../swagger/path/user/{id}/patch.yaml'
+  /reviews/{sellerId}:
+    get:
+      $ref: '../swagger/path/review/{id}/get.yaml'
+    post:
+      $ref: '../swagger/path/review/{id}/post.yaml'
+  /reviews/{sellerId}/stats:
+    get:
+      $ref: '../swagger/path/review/{id}/stats/get.yaml'
+
 components:
   securitySchemes:
     bearerAuth:

@@ -1,0 +1,28 @@
+type: object
+required:
+  - seller
+  - buyer
+  - rating
+properties:
+  seller:
+    type: string
+    format: uuid
+    description: ID of the user who sale a product
+    example: '661ffd0f494c8a001eec7202'
+  buyer:
+    type: string
+    format: uuid
+    description: ID of the user who buy a product
+    example: '661fff5f494c8a001eec7204'
+  rating:
+    type: number
+    description: Product/service rating (1-5 stars)
+    minimum: 1
+    maximum: 5
+    example: 5
+  comment:
+    type: string
+    description: Optional review text
+    example: 'Excellent seller, fast delivery'
+  createdAt:
+    type: string

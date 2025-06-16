@@ -1,0 +1,54 @@
+tags:
+  - Reviews
+summary: Get seller rating stats
+operationId: getRatingStats
+description: 'Get seller rating statistics with reviews'
+security:
+  - bearerAuth: []
+parameters:
+  - name: sellerId
+    in: path
+    required: true
+    description: ID of the seller
+    schema:
+      type: string
+      pattern: '^[0-9a-fA-F]{24}$'
+      example: '507f1f77bcf86cd799439011'
+responses:
+  '200':
+    description: Successfully retrieved stats
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            data:
+              type: object
+              properties:
+                meta:
+                  type: object
+                  properties:
+                    averageRating:
+                      type: number
+                      format: float
+                      example: 4.5
+                    totalReviews:
+                      type: integer
+                      example: 10
+                    ratingDistribution:
+                      type: array
+                      items:
+                        type: integer
+                      example: [0, 1, 2, 3, 4]
+                reviews:
+                  type: array
+                  items:
+                    $ref: ../../../../components/schemas/reviews.yaml
+  '400':
+    $ref: '../../../../components/responses/400.yaml'
