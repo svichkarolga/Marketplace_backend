@@ -14,6 +14,8 @@ const usersSchema = new Schema(
     linkField5: { type: String },
     sellerRating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
+    unreadMessagesCount: { type: Number, default: 0 },
+    fcmToken: { type: String },
   },
   { timestamps: true, versionKey: false },
 );
