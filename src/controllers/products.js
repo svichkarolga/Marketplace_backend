@@ -11,6 +11,7 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import createHttpError from 'http-errors';
 
 export const getProductsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
